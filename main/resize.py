@@ -8,7 +8,7 @@ import glob
 
 
 def get_latest_file():
-    list_of_files = glob.glob(os.path.join(settings.BASE_DIR, 'main', 'static', 'assets', 'redimensioned','*')) 
+    list_of_files = glob.glob(os.path.join(settings.BASE_DIR, 'main', 'static', 'assets', 'redimensioned', '*')) 
     return max(list_of_files, key=os.path.getctime)
 
 
