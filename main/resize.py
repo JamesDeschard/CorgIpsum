@@ -5,7 +5,8 @@ from PIL import Image
 
 import os
 import glob
-
+import random
+import string
 
 def get_latest_file():
     list_of_files = glob.glob(os.path.join(settings.BASE_DIR, 'main', 'static', 'assets', 'redimensioned', '*')) 
@@ -16,6 +17,11 @@ def resize(width, height):
     corgi = os.path.join(settings.BASE_DIR, 'main', 'static', 'assets', 'corgi.jpg')
     image = Image.open(corgi)
     new_image = image.resize((width, height))
-    new_image.save(os.path.join(settings.BASE_DIR, 'main', 'static', 'assets', 'redimensioned') + "/new.jpg")
+    new_image.save(
+        os.path.join(settings.BASE_DIR, 'main', 'static', 'assets', 'redimensioned') + 
+        "/new" + 
+        ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(4)) + 
+        ".jpg"
+    )
     return get_latest_file()
 

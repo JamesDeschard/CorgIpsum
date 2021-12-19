@@ -1,5 +1,5 @@
 {%load static%}
 <h1>ImageView</h1>
 <p>The dimensions of the wanted picture are {{width}} x {{height}}</p>
-<p>{{img}}</p>
-<img src="{%static 'assets/redimensioned/new.jpg'%}" alt="A picture of a corgi!">
+<p>Image path server side: {{img}}</p>
+<img src="{% static img %}" alt="A picture of a corgi!">
