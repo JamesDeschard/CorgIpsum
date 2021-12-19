@@ -28,6 +28,9 @@ class ImageView(View):
    
     def get(self, request, *args, **kwargs):
         width, height = self.get_dimensions(request.path)
+        if len(str(width)) > 4 or len(str(height)) > 4:
+            return render(request, self.template, {'error': "file requested is way too large bro"})
+
         context = {
             'width': width,
             'height': height,
