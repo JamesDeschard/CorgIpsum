@@ -20,8 +20,7 @@ def resize(width, height):
     new_image.save(
         os.path.join(settings.BASE_DIR, 'main', 'static', 'assets', 'redimensioned') + 
         "/new" + 
-        ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(4)) + 
-        ".jpg"
+        ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(4)) + ".jpg"
     )
     return get_latest_file()
 
