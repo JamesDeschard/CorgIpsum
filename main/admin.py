@@ -1,3 +1,8 @@
 from django.contrib import admin
+from .models import CorgImage
 
-# Register your models here.
+class ImageAdmin(admin.ModelAdmin):
+    fields = ('title', 'img', )
+
+admin.site.register(CorgImage, ImageAdmin)
+    

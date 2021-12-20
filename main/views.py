@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 
 from.resize import resize
@@ -20,20 +20,13 @@ class ImageView(View):
     def get_dimensions(self, full_path):
         dimensions = full_path.split('/')[1:]
         return int(dimensions[0]), int(dimensions[1])
-    
-    def get_resize(self, width, height):
-        url = resize(width, height)
-        index = url.index('assets')
-        return url[index:]
+        
    
     def get(self, request, *args, **kwargs):
         width, height = self.get_dimensions(request.path)
-        if len(str(width)) > 4 or len(str(height)) > 4:
-            return render(request, self.template, {'error': "file requested is way too large bro"})
+        if width > 9999 or height > 9999:
+            return render(request, self.template, {'error': 'Sorry, but the requested file is too large to be computed..!'})
 
-        context = {
-            'width': width,
-            'height': height,
-            'img': self.get_resize(width, height)
-        }
-        return render(request, self.template, context)
+        return redirect(resize(width, height))
+     
+    

@@ -14,7 +14,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-b^sgm*jbpumv-1zir0mya2*ag^1yrgi+muhb_6(=tqc28%-z=*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'storages',
     'main',
 ]
 
@@ -112,9 +113,29 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
+USE_S3 = True
+
+if USE_S3 == True:
+    AWS_ACCESS_KEY_ID = 'AKIA5V5U5ZRSZHZX7GY5'
+    AWS_SECRET_ACCESS_KEY = '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'
+    AWS_STORAGE_BUCKET_NAME = 'corgipsum'
+    AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+
+    AWS_S3_OBJECT_PARAMETERS = {
+        'CacheControl': 'max-age=86400',
+    }
+    MEDIA_URL = 'media/'
+    MEDIA_ROOT = 'media/'
+    DEFAULT_FILE_STORAGE = 'corgipsum.storage_backends.PublicMediaStorage' 
+
+else:
+    MEDIA_URL = '/media/'
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Heroku config
 django_heroku.settings(locals())

@@ -1,10 +1,14 @@
 {%load static%}
 
 {% if error %}
+
 <p>{{error}}</p>
+
 {% else %}
+
 <h1>ImageView</h1>
 <p>The dimensions of the wanted picture are {{width}} x {{height}}</p>
 <p>Image path server side: {{img}}</p>
-<img src="{% static img %}" alt="A picture of a corgi!">
+<img src="{{url}}" alt="A picture of a corgi!">
+
 {% endif %}
