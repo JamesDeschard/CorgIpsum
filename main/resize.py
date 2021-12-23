@@ -1,12 +1,10 @@
-from django.conf import settings
-from django.core.files.uploadedfile import InMemoryUploadedFile
-
 from .models import CorgImage
+from .choose_corgi import get_random_img
 
 from io import BytesIO
 from PIL import Image, ImageOps, ImageEnhance
 
-import os
+import base64
 import random
 import string
 
@@ -95,7 +93,7 @@ class NewCorgi(Filters):
 
     def resize(self):
         img_io = BytesIO()
-        corgi = os.path.join(settings.BASE_DIR, 'main', 'static', 'assets', 'corgi.jpg')
+        corgi = get_random_img()
         image = Image.open(corgi)
         largest = self.get_largest()
 
@@ -107,9 +105,10 @@ class NewCorgi(Filters):
             new_image = self.apply_crop(new_image, False)
 
         new_image = self.apply_filter(new_image)
-        new_image.save(img_io, format='JPEG', quality=100)
-        thumb_file = InMemoryUploadedFile(img_io, None, 'corgi.jpg', 'image/jpeg', img_io.getbuffer().nbytes, None)
-        return self.upload_to_db(thumb_file)
+        new_image.save(img_io, format='png')
+        img_io.seek(0)
+        new_image = base64.b64encode(img_io.getvalue())
+        return new_image.decode('utf8')
 
     def apply_filter(self, img):
         if self.filter == 'sepia':

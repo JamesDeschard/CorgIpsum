@@ -1,8 +1,11 @@
 from django.contrib import admin
-from .models import CorgImage
+from .models import CorgImageUrls
 
-class ImageAdmin(admin.ModelAdmin):
-    fields = ('title', 'img', )
 
-admin.site.register(CorgImage, ImageAdmin)
+class CorgImageUrlsAdmin(admin.ModelAdmin):
+    fields = ('title', 'data', )
+
+
+admin.site.register(CorgImageUrls, CorgImageUrlsAdmin)
+
     
