@@ -64,6 +64,8 @@ class NewCorgi(Filters):
     
     def get_aspect_ratio(self, img):
         dimensions = img.size
+        print(dimensions)
+        print(dimensions[0] / dimensions[1])
         return dimensions[0] / dimensions[1]
         
     def upload_to_db(self, img):
@@ -85,7 +87,6 @@ class NewCorgi(Filters):
             border = (0, resize, 0, resize)
 
         img = ImageOps.crop(img, border)
-
         if img.size != (self.wanted_dimensions):
             return img.resize((self.wanted_dimensions))
 
@@ -98,13 +99,17 @@ class NewCorgi(Filters):
         largest = self.get_largest()
 
         if largest[1]:
-            new_image = image.resize((int(self.width * self.get_aspect_ratio(image)), largest[0]))
+            new_image = image.resize(
+                (int(self.height / self.get_aspect_ratio(image)), largest[0])
+            )
             new_image = self.apply_crop(new_image, True)
         else:
-            new_image = image.resize((largest[0], int(self.height * self.get_aspect_ratio(image))))
+            new_image = image.resize(
+                (largest[0], int(self.width / self.get_aspect_ratio(image)))
+            )
             new_image = self.apply_crop(new_image, False)
 
-        new_image = self.apply_filter(new_image)
+        new_image = self.apply_filter(new_image) if self.filter else new_image
         new_image.save(img_io, format='png')
         img_io.seek(0)
         new_image = base64.b64encode(img_io.getvalue())
@@ -119,8 +124,7 @@ class NewCorgi(Filters):
             return self.contrast(img)
         elif self.filter == 'grayscale':
             return self.grayscale(img)
-        elif self.filter == 'invert':
-            return self.invert(img)
         else:
-            return img
+            return self.invert(img)
+
 
