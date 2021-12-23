@@ -12,7 +12,7 @@ urlpatterns = [
         name=get_name(ImageView)
     ),
     re_path(
-        r'(?P<width>[0-9]+)/', 
+        r'(?P<width>[0-9]+)', 
         ImageSquareView.as_view(), 
         name=get_name(ImageSquareView)
     ),
