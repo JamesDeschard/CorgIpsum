@@ -55,17 +55,26 @@ class NewCorgi(Filters):
         self.filter = filter
         self.wanted_dimensions = (self.width, self.height)
     
-    def get_largest(self):
+    def square_image(self, image):
+        thumbnail_size = (self.width, self.height)
+        background = Image.new('RGBA', thumbnail_size, "black")
+        image.thumbnail(thumbnail_size)
+        (w, h) = image.size
+        background.paste(image, ((self.width - w) // 2, (self.width - h) // 2 ))
+        return background, 'sqr'
+    
+    def get_largest(self, img):
+        if self.width == self.height:
+            return self.square_image(img)
+
         max_value = max([self.width, self.height])
         if max_value == self.height:
-            return max_value, True
+            return max_value, self.height
         else:
-            return max_value, False
+            return max_value, self.width
     
     def get_aspect_ratio(self, img):
         dimensions = img.size
-        print(dimensions)
-        print(dimensions[0] / dimensions[1])
         return dimensions[0] / dimensions[1]
         
     def upload_to_db(self, img):
@@ -96,18 +105,20 @@ class NewCorgi(Filters):
         img_io = BytesIO()
         corgi = get_random_img()
         image = Image.open(corgi)
-        largest = self.get_largest()
+        largest = self.get_largest(image)
 
-        if largest[1]:
+        if largest[1] == self.height:
             new_image = image.resize(
                 (int(self.height / self.get_aspect_ratio(image)), largest[0])
             )
             new_image = self.apply_crop(new_image, True)
-        else:
+        elif largest[1] == self.width:
             new_image = image.resize(
                 (largest[0], int(self.width / self.get_aspect_ratio(image)))
             )
             new_image = self.apply_crop(new_image, False)
+        else:
+            new_image = largest[0]
 
         new_image = self.apply_filter(new_image) if self.filter else new_image
         new_image.save(img_io, format='png')
