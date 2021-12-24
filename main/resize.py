@@ -5,8 +5,7 @@ from io import BytesIO
 from PIL import Image, ImageOps, ImageEnhance
 
 import base64
-import random
-import string
+from math import floor
 
 class Filters(object):
 
@@ -56,38 +55,31 @@ class NewCorgi(Filters):
         self.wanted_dimensions = (self.width, self.height)
     
     def square_image(self, image):
-        thumbnail_size = (self.width, self.height)
-        background = Image.new('RGBA', thumbnail_size, "black")
-        image.thumbnail(thumbnail_size)
+        background = Image.new('RGBA', self.wanted_dimensions, "black")
+        image.thumbnail(self.wanted_dimensions)
         (w, h) = image.size
         background.paste(image, ((self.width - w) // 2, (self.width - h) // 2 ))
-        return background, 'sqr'
-    
-    def get_largest(self, img):
-        if self.width == self.height:
-            return self.square_image(img)
 
-        max_value = max([self.width, self.height])
-        if max_value == self.height:
-            return max_value, self.height
-        else:
-            return max_value, self.width
-    
-    def get_aspect_ratio(self, img):
-        dimensions = img.size
-        return dimensions[0] / dimensions[1]
-        
-    def upload_to_db(self, img):
-        title = "corgi" + ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(4))
-        new_image = CorgImage(
-            title= title,
-            img = img
-            )
-        new_image.save()
-        return CorgImage.objects.get(title=title)
-    
+        return background
+
+    def apply_thumbnail(self, img, size):
+        width, height = img.size
+
+        if height > width:
+            ratio = float(width) / float(height)
+            newwidth = ratio * size
+            img = img.resize((int(floor(newwidth)), size), Image.ANTIALIAS)
+
+        elif width > height:
+            ratio = float(height) / float(width)
+            newheight = ratio * size
+            img = img.resize((size, int(floor(newheight))), Image.ANTIALIAS)
+
+        return img
+
     def apply_crop(self, img, type):
         calc = img.size
+
         if type:
             resize = (calc[0] - self.width) // 2
             border = (resize, 0, resize, 0)
@@ -96,6 +88,7 @@ class NewCorgi(Filters):
             border = (0, resize, 0, resize)
 
         img = ImageOps.crop(img, border)
+
         if img.size != (self.wanted_dimensions):
             return img.resize((self.wanted_dimensions))
 
@@ -105,36 +98,38 @@ class NewCorgi(Filters):
         img_io = BytesIO()
         corgi = get_random_img()
         image = Image.open(corgi)
-        largest = self.get_largest(image)
 
-        if largest[1] == self.height:
-            new_image = image.resize(
-                (int(self.height / self.get_aspect_ratio(image)), largest[0])
-            )
+        if self.height > self.width:
+            new_image = self.apply_thumbnail(image, self.height)
             new_image = self.apply_crop(new_image, True)
-        elif largest[1] == self.width:
-            new_image = image.resize(
-                (largest[0], int(self.width / self.get_aspect_ratio(image)))
-            )
+
+        elif self.width > self.height:
+            new_image = self.apply_thumbnail(image, self.width)
             new_image = self.apply_crop(new_image, False)
+
         else:
-            new_image = largest[0]
+            new_image = self.square_image(image)
 
         new_image = self.apply_filter(new_image) if self.filter else new_image
         new_image.save(img_io, format='png')
         img_io.seek(0)
-        new_image = base64.b64encode(img_io.getvalue())
-        return new_image.decode('utf8')
+        new_image = base64.b64encode(img_io.getvalue()).decode('utf8')
+
+        return new_image
 
     def apply_filter(self, img):
         if self.filter == 'sepia':
             return self.sepia(img)
+
         elif self.filter == 'blackandwhite':
             return self.black_and_white(img)
+
         elif self.filter == 'contrast':
             return self.contrast(img)
+
         elif self.filter == 'grayscale':
             return self.grayscale(img)
+
         else:
             return self.invert(img)
 
