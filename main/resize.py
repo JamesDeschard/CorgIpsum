@@ -5,7 +5,8 @@ from io import BytesIO
 from PIL import Image, ImageOps, ImageEnhance
 
 import base64
-from math import floor
+import random
+import string
 
 class Filters(object):
 
@@ -54,32 +55,8 @@ class NewCorgi(Filters):
         self.filter = filter
         self.wanted_dimensions = (self.width, self.height)
     
-    def square_image(self, image):
-        background = Image.new('RGBA', self.wanted_dimensions, "black")
-        image.thumbnail(self.wanted_dimensions)
-        (w, h) = image.size
-        background.paste(image, ((self.width - w) // 2, (self.width - h) // 2 ))
-
-        return background
-
-    def apply_thumbnail(self, img, size):
-        width, height = img.size
-
-        if height > width:
-            ratio = float(width) / float(height)
-            newwidth = ratio * size
-            img = img.resize((int(floor(newwidth)), size), Image.ANTIALIAS)
-
-        elif width > height:
-            ratio = float(height) / float(width)
-            newheight = ratio * size
-            img = img.resize((size, int(floor(newheight))), Image.ANTIALIAS)
-
-        return img
-
     def apply_crop(self, img, type):
         calc = img.size
-
         if type:
             resize = (calc[0] - self.width) // 2
             border = (resize, 0, resize, 0)
@@ -88,7 +65,6 @@ class NewCorgi(Filters):
             border = (0, resize, 0, resize)
 
         img = ImageOps.crop(img, border)
-
         if img.size != (self.wanted_dimensions):
             return img.resize((self.wanted_dimensions))
 
@@ -98,24 +74,20 @@ class NewCorgi(Filters):
         img_io = BytesIO()
         corgi = get_random_img()
         image = Image.open(corgi)
+        ratio = image.size[0] / image.size[1]
 
         if self.height > self.width:
-            new_image = self.apply_thumbnail(image, self.height)
+            new_image = image.resize((int(self.height * ratio), self.height))
             new_image = self.apply_crop(new_image, True)
-
-        elif self.width > self.height:
-            new_image = self.apply_thumbnail(image, self.width)
-            new_image = self.apply_crop(new_image, False)
-
         else:
-            new_image = self.square_image(image)
+            new_image = image.resize((self.width, int(self.width / ratio)))
+            new_image = self.apply_crop(new_image, False)
 
         new_image = self.apply_filter(new_image) if self.filter else new_image
         new_image.save(img_io, format='png')
         img_io.seek(0)
-        new_image = base64.b64encode(img_io.getvalue()).decode('utf8')
-
-        return new_image
+        new_image = base64.b64encode(img_io.getvalue())
+        return new_image.decode('utf8')
 
     def apply_filter(self, img):
         if self.filter == 'sepia':
