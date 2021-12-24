@@ -5,8 +5,6 @@ from io import BytesIO
 from PIL import Image, ImageOps, ImageEnhance
 
 import base64
-import random
-import string
 
 class Filters(object):
 
@@ -50,43 +48,21 @@ class Filters(object):
 class NewCorgi(Filters):
 
     def __init__(self, width, height, filter=False):
-        self.width = width
-        self.height = height
         self.filter = filter
-        self.wanted_dimensions = (self.width, self.height)
+        self.wanted_dimensions = (width, height)
     
-    def apply_crop(self, img, type):
-        calc = img.size
-        if type:
-            resize = (calc[0] - self.width) // 2
-            border = (resize, 0, resize, 0)
-        else:
-            resize = (calc[1] - self.height) // 2
-            border = (0, resize, 0, resize)
-
-        img = ImageOps.crop(img, border)
-        if img.size != (self.wanted_dimensions):
-            return img.resize((self.wanted_dimensions))
-
-        return img
-
     def resize(self):
         img_io = BytesIO()
         corgi = get_random_img()
         image = Image.open(corgi)
-        ratio = image.size[0] / image.size[1]
 
-        if self.height > self.width:
-            new_image = image.resize((int(self.height * ratio), self.height))
-            new_image = self.apply_crop(new_image, True)
-        else:
-            new_image = image.resize((self.width, int(self.width / ratio)))
-            new_image = self.apply_crop(new_image, False)
-
+        new_image = ImageOps.fit(image, self.wanted_dimensions, Image.ANTIALIAS)
         new_image = self.apply_filter(new_image) if self.filter else new_image
+        
         new_image.save(img_io, format='png')
         img_io.seek(0)
         new_image = base64.b64encode(img_io.getvalue())
+        
         return new_image.decode('utf8')
 
     def apply_filter(self, img):
