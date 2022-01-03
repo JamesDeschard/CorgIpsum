@@ -1,4 +1,3 @@
-from .models import CorgImage
 from .choose_corgi import get_random_img
 
 from io import BytesIO
@@ -62,7 +61,7 @@ class NewCorgi(Filters):
         new_image.save(img_io, format='png')
         img_io.seek(0)
         new_image = base64.b64encode(img_io.getvalue())
-        
+
         return new_image.decode('utf8')
 
     def apply_filter(self, img):
