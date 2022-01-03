@@ -1,7 +1,10 @@
-from django.conf import settings
-
 import os
 import random
+
+from django.conf import settings
+
+corgi_file = os.path.join(settings.BASE_DIR, 'main', 'static', 'assets')
+length = len(os.listdir(corgi_file))
 
 def get_random_img():
     return os.path.join(
@@ -9,5 +12,5 @@ def get_random_img():
         'main', 
         'static', 
         'assets', 
-        'corgi_{}.jpg'.format(str(random.randint(1, 400)))
+        'corgi_{}.jpg'.format(str(random.randint(1, length)))
     )

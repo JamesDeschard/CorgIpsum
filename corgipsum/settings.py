@@ -17,7 +17,7 @@ SECRET_KEY = 'django-insecure-b^sgm*jbpumv-1zir0mya2*ag^1yrgi+muhb_6(=tqc28%-z=*
 DEBUG = False
 
 if not DEBUG: 
-    SECURE_SSL_REDIRECT = True
+    # SECURE_SSL_REDIRECT = True        
     CSRF_COOKIE_SECURE = True #to avoid transmitting the CSRF cookie over HTTP accidentally.
     SESSION_COOKIE_SECURE = True #to avoid transmitting the session cookie over HTTP accidentally
     SECURE_BROWSER_XSS_FILTER = True

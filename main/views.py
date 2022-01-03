@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views import View
 
-from .utils import *
+from .utils import BaseCorgImage, update_and_get_counter
 
 
 class HomePage(View):
