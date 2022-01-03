@@ -9,5 +9,5 @@ def get_random_img():
         'main', 
         'static', 
         'assets', 
-        'corgi_{}.jpg'.format(str(random.randint(1, 200)))
+        'corgi_{}.jpg'.format(str(random.randint(1, 400)))
     )
