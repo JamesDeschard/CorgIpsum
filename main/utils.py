@@ -27,7 +27,6 @@ class BaseCorgImage(View):
     def __init__(self):
         self.length = ''
         self.template = ''
-        update_and_get_counter()
 
     def check_filter(self, filter):
         if filter in FILTERS:
@@ -47,6 +46,7 @@ class BaseCorgImage(View):
         return False
     
     def get(self, request, *args, **kwargs):
+        update_and_get_counter()
         dimensions = self.get_dimensions(request)
         if len(dimensions) == self.length:
             if self.adjust():
