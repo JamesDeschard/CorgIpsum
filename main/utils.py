@@ -3,18 +3,27 @@ from django.http import JsonResponse
 from django.shortcuts import render
 
 from .resize import NewCorgi
+from .models import Counter
 
 INEXISTENT_FILE = {'error': 'Sorry, but the requested file is too large to be computed..!'}
 INEXISTENT_FILTER = {'error': 'Sorry, but the requested filter does not exist..!'}
 FILE_TOO_LARGE = {'error': 'Sorry, but the requested corgi is too large to be computed..!'}
 
-FILTERS = ['sepia', 'grayscale', 'invert', 'contrast', 'blackandwhite']
+FILTERS = ['sepia', 'grayscale', 'invert', 'contrast', 'blackandwhite', 'blur']
+
+def update_and_get_counter():
+    counter_object = Counter.objects.first()
+    counter = counter_object.counter + 1
+    counter_object.counter = counter
+    counter_object.save()
+    return counter
 
 class BaseCorgImage(View):
 
     def __init__(self):
         self.length = ''
         self.template = ''
+        self.counter = update_and_get_counter()
 
     def check_filter(self, filter):
         if filter in FILTERS:
@@ -52,6 +61,7 @@ class BaseCorgImage(View):
 
         elif len(dimensions) > self.length:
             return JsonResponse(INEXISTENT_FILE, status=403)
+
         else:
             if self.adjust():
                 width, height = [dimensions[0], dimensions[0]]

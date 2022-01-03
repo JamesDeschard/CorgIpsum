@@ -24,7 +24,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         data = CorgImageUrls.objects.first()
         counter = 0
-        for url in data.data[LIMIT]:
+        for url in data.data[0:100]:
             get_image(url, str(counter + 1))
             counter += 1
 

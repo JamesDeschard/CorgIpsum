@@ -1,7 +1,7 @@
 from .choose_corgi import get_random_img
 
 from io import BytesIO
-from PIL import Image, ImageOps, ImageEnhance
+from PIL import Image, ImageOps, ImageEnhance, ImageFilter
 
 import base64
 
@@ -18,6 +18,9 @@ class Filters(object):
 
     def grayscale(self, img):
         return ImageOps.grayscale(img)
+    
+    def blur(self, img):
+        return img.filter(ImageFilter.BLUR)
 
     def sepia(self, img):
         width, height = img.size
@@ -76,6 +79,9 @@ class NewCorgi(Filters):
 
         elif self.filter == 'grayscale':
             return self.grayscale(img)
+            
+        elif self.filter == 'blur':
+            return self.blur(img)
 
         else:
             return self.invert(img)

@@ -14,9 +14,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-b^sgm*jbpumv-1zir0mya2*ag^1yrgi+muhb_6(=tqc28%-z=*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+if not DEBUG: 
+    SECURE_SSL_REDIRECT = True
+    CSRF_COOKIE_SECURE = True #to avoid transmitting the CSRF cookie over HTTP accidentally.
+    SESSION_COOKIE_SECURE = True #to avoid transmitting the session cookie over HTTP accidentally
+    SECURE_BROWSER_XSS_FILTER = True
+    SECURE_CONTENT_TYPE_NOSNIFF = True  
+    SECURE_HSTS_SECONDS = 86400 
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
+
+ALLOWED_HOSTS = ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com', 'www.corgipsum.com', 'corgipsum.com']
 
 
 # Application definition

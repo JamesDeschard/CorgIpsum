@@ -1,6 +1,7 @@
 from django.db import models
-from django.db.models.base import Model
 
+class Counter(models.Model):
+    counter = models.IntegerField()
 
 class CorgImage(models.Model):
     title = models.CharField(max_length=128)
