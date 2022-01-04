@@ -1,9 +1,10 @@
+from PIL import Image, ImageOps, ImageEnhance, ImageFilter
+from django.conf import settings
+
+import os
+
 from .choose_corgi import get_random_img
 
-from io import BytesIO
-from PIL import Image, ImageOps, ImageEnhance, ImageFilter
-
-import base64
 
 class Filters(object):
 
@@ -54,18 +55,17 @@ class NewCorgi(Filters):
         self.wanted_dimensions = (width, height)
     
     def resize(self):
-        img_io = BytesIO()
+        # Avoid ciruclar import
+        from .utils import BASE_FILE
+
         corgi = get_random_img()
         image = Image.open(corgi)
 
         new_image = ImageOps.fit(image, self.wanted_dimensions, Image.ANTIALIAS)
         new_image = self.apply_filter(new_image) if self.filter else new_image
+        new_image.save(os.path.join(BASE_FILE))
         
-        new_image.save(img_io, format='png')
-        img_io.seek(0)
-        new_image = base64.b64encode(img_io.getvalue())
-
-        return new_image.decode('utf8')
+        return True
 
     def apply_filter(self, img):
         if self.filter == 'sepia':
