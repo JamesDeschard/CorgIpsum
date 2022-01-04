@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{% static 'styles/style.css' %}">
+  <link rel="stylesheet" href="style.css">
   <title>Corgipsum</title>
 </head>
 <body>
@@ -12,10 +12,13 @@
   <div class="hero">
     <div class="container">
       <figure class="hero__logo">
-        <img src="{% static 'images/corgipsum-logo.png' %}" alt="Corgipsum logo">
+        <img src="corgipsum-logo.png" alt="Corgipsum logo">
       </figure>
       <h1 class="hero__title">Corgipsum</h1>
       <p class="hero__subtitle">Spread ❤️ with Corgis</p>
+      <div class="hero__center">
+        <p class="hero__counter">Already <span>{{ counter }}</span> Corgis have found an owner !</p>
+      </div>
     </div>
     <svg class="hero__waves" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
       <path fill="#fcdabf" fill-opacity="1" d="M0,224L60,197.3C120,171,240,117,360,117.3C480,117,600,171,720,176C840,181,960,139,1080,122.7C1200,107,1320,117,1380,122.7L1440,128L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"></path>
@@ -30,7 +33,7 @@
       <div class="row__flex">
         <div class="row__col">
           <figure>
-            <img src="{% static 'assets/corgi_118.jpg' %}" alt="Corgi 118">
+            <img src="corgi_118.jpg" alt="Corgi 118">
           </figure>
         </div>
         <div class="row__col">
@@ -48,7 +51,7 @@
       <div class="row__flex">
         <div class="row__col row__col--square">
           <figure>
-            <img src="{% static 'assets/corgi_201.jpg' %}" alt="Corgi 201">
+            <img src="corgi_201.jpg" alt="Corgi 118">
           </figure>
         </div>
         <div class="row__col">
@@ -66,7 +69,7 @@
       <div class="row__flex">
         <div class="row__col row__col--filters">
           <figure>
-            <img src="{% static 'assets/corgi_199.jpg' %}" alt="Corgi 199">
+            <img src="corgi_199.jpg" alt="Corgi 118">
             <span></span>
           </figure>
         </div>

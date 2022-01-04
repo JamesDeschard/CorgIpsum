@@ -59,8 +59,8 @@ table {
   font-stretch: normal;
   font-display: swap;
   src:
-      url(../fonts/Corgi-Regular.woff2) format("woff2"),
-      url(../fonts/Corgi-Regular.woff) format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+      url(./Corgi-Regular.woff2) format("woff2"),
+      url(./Corgi-Regular.woff) format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 
 img {
@@ -116,6 +116,25 @@ img {
   top: 100%;
   left: 0;
   right: 0;
+}
+
+.hero__center {
+  text-align: center;
+}
+
+.hero__counter {
+  margin-top: 40px;
+  display: inline-flex;
+  align-items: center;
+  padding: 20px;
+  border-radius: 50px;
+  background-color: #fff;
+}
+
+.hero__counter span {
+  font-family: "Corgi";
+  font-size: 24px;
+  margin: 2px 3px 0;
 }
 
 .headline {
@@ -245,6 +264,7 @@ img {
   bottom: 20px;
   right: 20px;
   padding: 1px 4px;
+  z-index: 10;
   border-radius: 10px;
   background-color: rgba(232,179,145, 1);
   color: #fff;
