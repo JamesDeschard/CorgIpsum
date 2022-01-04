@@ -129,6 +129,7 @@ img {
   padding: 20px;
   border-radius: 50px;
   background-color: #fff;
+  border: 5px dashed rgba(232,179,145,1);
 }
 
 .hero__counter span {
