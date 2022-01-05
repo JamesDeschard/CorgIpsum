@@ -17,7 +17,7 @@ SECRET_KEY = 'django-insecure-b^sgm*jbpumv-1zir0mya2*ag^1yrgi+muhb_6(=tqc28%-z=*
 DEBUG = False
 
 if not DEBUG: 
-    # SECURE_SSL_REDIRECT = True        
+    SECURE_SSL_REDIRECT = True        
     CSRF_COOKIE_SECURE = True #to avoid transmitting the CSRF cookie over HTTP accidentally.
     SESSION_COOKIE_SECURE = True #to avoid transmitting the session cookie over HTTP accidentally
     SECURE_BROWSER_XSS_FILTER = True
@@ -123,13 +123,11 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEBUG_PROPAGATE_EXCEPTIONS = True
 
 # Heroku config
 django_heroku.settings(locals())

@@ -1,7 +1,7 @@
+from django.conf import settings
+
 import os
 import random
-
-from django.conf import settings
 
 corgi_file = os.path.join(settings.BASE_DIR, 'main', 'static', 'assets')
 length = len(os.listdir(corgi_file))

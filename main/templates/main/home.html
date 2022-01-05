@@ -1,23 +1,25 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
-  <title>Corgipsum</title>
-</head>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'styles/style.css' %}">
+    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+    <title>Corgipsum</title>
+  </head>
 <body>
 
   <div class="hero">
     <div class="container">
       <figure class="hero__logo">
-        <img src="corgipsum-logo.png" alt="Corgipsum logo">
+        <img src="{% static 'images/corgipsum-logo.png'%}" alt="Corgipsum logo">
       </figure>
       <h1 class="hero__title">Corgipsum</h1>
       <p class="hero__subtitle">Spread ❤️ with Corgis</p>
       <div class="hero__center">
-        <p class="hero__counter">Already <span>{{ counter }}</span> corgis have found an owner !</p>
+        <p class="hero__counter"><span>{{ counter }}</span> corgis have already found an owner !</p>
       </div>
     </div>
     <svg class="hero__waves" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
@@ -33,7 +35,7 @@
       <div class="row__flex">
         <div class="row__col">
           <figure>
-            <img src="corgi_118.jpg" alt="Corgi 118">
+            <img src="{% static 'assets/corgi_118.jpg'%}" alt="Corgi 118">
           </figure>
         </div>
         <div class="row__col">
@@ -51,7 +53,11 @@
       <div class="row__flex">
         <div class="row__col row__col--square">
           <figure>
+<<<<<<< HEAD
             <img src="corgi_201.jpg" alt="Corgi 118">
+=======
+            <img src="{% static 'assets/corgi_201.jpg'%}" alt="Corgi 118">
+>>>>>>> 03154f6ad04ebcd12aaef5d880ca288bff615a04
           </figure>
         </div>
         <div class="row__col">
@@ -69,15 +75,19 @@
       <div class="row__flex">
         <div class="row__col row__col--filters">
           <figure>
+<<<<<<< HEAD
             <img src="corgi_199.jpg" alt="Corgi 118">
+=======
+            <img src="{% static 'assets/corgi_199.jpg'%}" alt="Corgi 118">
+>>>>>>> 03154f6ad04ebcd12aaef5d880ca288bff615a04
             <span></span>
           </figure>
         </div>
         <div class="row__col">
           <h2 class="row__title">Filters are available.</h2>
           <p class="row__content">You can easily add a filter to your image by adding the name of said filter at the end
-            of the url.<br> Surrported filters: <span>sepia</span> <span>grayscale</span> <span>invert</span> <span>contrast</span> <span>blackandwhite</span> <span>blur</span><br><br>
-            Example: <a href="https://corgipsum/400/200/sepia">https://corgipsum/400/200/sepia</a>
+            of the url.<br> Supported filters: <span>sepia</span> <span>grayscale</span> <span>invert</span> <span>contrast</span> <span>blackandwhite</span> <span>blur</span><br><br>
+            Example: <a href="https://corgipsum.com/400/200/sepia">https://corgipsum/400/200/sepia</a>
           </p>
         </div>
       </div>
@@ -92,3 +102,4 @@
 
 </body>
 </html>
+
