@@ -310,6 +310,11 @@ img {
   border-bottom: 2px dashed rgba(232,179,145,1);
 }
 
+.footer p:nth-child(2) {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
 @media screen and (max-width: 768px) {
   .row__flex {
     flex-direction: column !important;
