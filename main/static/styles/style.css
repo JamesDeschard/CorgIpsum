@@ -110,6 +110,10 @@ img {
   text-shadow: 0 4px 0 rgba(232,179,145,1);
 }
 
+.hero__subtitle span {
+  font-weight: 400;
+}
+
 .hero__waves {
   position: absolute;
   top: 100%;
