@@ -1,0 +1,401 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap');
+
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+  font-family: 'Poppins', sans-serif;
+  color: #666;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+@font-face {
+  font-family: "Corgi";
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: normal;
+  font-display: swap;
+  src:
+      url(./Corgi-Regular.woff2) format("woff2"),
+      url(./Corgi-Regular.woff) format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.container {
+  max-width: 1024px;
+  margin-inline: auto;
+  padding-inline: 20px;
+}
+
+.hero {
+  position: relative;
+  padding: 100px 0 20px;
+  background: rgb(252,218,191);
+  background: linear-gradient(0deg, rgba(252,218,191,1) 0%, rgba(232,179,145,1) 100%);
+}
+
+.hero__logo {
+  width: 200px;
+  margin: 0 auto;
+}
+
+.hero__logo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.hero__title {
+  margin-top: 25px;
+  font-family: "Corgi";
+  font-size: 80px;
+  color: #fff;
+  text-align: center;
+  text-shadow: 0 10px 0 rgba(232,179,145,1);
+}
+
+.hero__subtitle {
+  margin-inline: auto;
+  font-size: 26px;
+  text-align: center;
+  color: #fff;
+  font-weight: bold;
+  text-shadow: 0 4px 0 rgba(232,179,145,1);
+}
+
+.hero__subtitle span {
+  font-weight: 400;
+}
+
+.hero__waves {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+}
+
+.hero__center {
+  text-align: center;
+}
+
+.hero__counter {
+  margin-top: 40px;
+  display: inline-flex;
+  align-items: center;
+  padding: 20px;
+  border-radius: 50px;
+  background-color: #fff;
+  border: 5px dashed rgba(232,179,145,1);
+}
+
+.hero__counter span {
+  font-family: "Corgi";
+  font-size: 24px;
+  margin: 2px 3px 0;
+}
+
+.headline {
+  position: relative;
+  padding: 80px 0;
+  margin: 80px 0;
+  max-width: 600px;
+  font-size: 20px;
+  margin-inline: auto;
+  text-align: center;
+  line-height: 1.4;
+  font-weight: bold;
+}
+
+.headline--big {
+  font-size: 32px;
+}
+
+.hero + .headline {
+  padding-top: 20%;
+  margin-top: 0;
+}
+
+.hero + .headline::before {
+  display: none;
+}
+
+.headline::after,
+.headline::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  width: 300px;
+  transform: translateX(-50%);
+  height: 3px;
+  background: linear-gradient(to right, transparent 50%, #fff 50%), rgba(232,179,145,1);
+  background-size: 16px 3px, 100% 3px;
+}
+
+.headline::after {
+  bottom: 0;
+}
+
+.headline::before {
+  top: 0;
+}
+
+.row {
+  margin: 40px 0;
+}
+
+.row__flex {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.row--reverse .row__flex {
+  flex-direction: row-reverse;
+}
+
+.row__title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.row__col {
+  flex: 1;
+}
+
+.row__col figure {
+  position: relative;
+}
+
+.row__col img {
+  position: relative;
+  z-index: 1;
+}
+
+.row__col figure::before {
+  content:"";
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  background-color: rgba(232,179,145, 1);
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.row--reverse figure::before {
+  left: auto;
+  right: -20px;
+}
+
+.row__col--square {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.row__col--square figure {
+  width: 400px;
+  height: 400px;
+  aspect-ratio: 1 / 1;
+}
+
+.row__col--square img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.row__col--filters img {
+  animation: filters 40s linear infinite;
+}
+
+.row__col--filters figure {
+  position: relative;
+}
+
+
+.row__col--filters span {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  padding: 1px 4px;
+  z-index: 10;
+  border-radius: 10px;
+  background-color: rgba(232,179,145, 1);
+  color: #fff;
+}
+
+.row__col--filters span::before {
+  content: "normal";
+  font-size: 14px;
+  animation: filters-name 40s linear infinite;
+}
+
+.row__content {
+  line-height: 1.4;
+}
+
+.row__content a {
+  padding: 1px 4px;
+  background-color: rgba(232,179,145, 0.4);
+  color: #333;
+  font-weight: 300;
+  text-decoration: none;
+}
+
+.row__content span {
+  padding: 1px 4px;
+  border-radius: 10px;
+  font-size: 14px;
+  background-color: rgba(232,179,145, 1);
+  color: #fff;
+}
+
+
+.footer {
+  margin-top: 100px;
+  padding: 40px 0;
+  text-align: center;
+  line-height: 1.3;
+}
+
+.footer a {
+  color: rgba(232,179,145,1);
+  text-decoration: none;
+  border-bottom: 2px dashed rgba(232,179,145,1);
+}
+
+.footer p:nth-child(2) {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+@media screen and (max-width: 768px) {
+  .row__flex {
+    flex-direction: column !important;
+  }
+
+  .row__col--square figure {
+    width: auto;
+    height: auto;
+  }
+}
+
+@media screen and (max-width: 460px) {
+  .hero__title {
+    font-size: 60px;
+  }
+
+  .hero__subtitle {
+    font-size: 20px;
+  }
+}
+
+@keyframes filters {
+  0%, 20% {
+    filter: none;
+  }
+
+  30% {
+    filter: sepia(60%);
+  }
+
+  40% {
+    filter: grayscale(50%);
+  }
+
+  50% {
+    filter: invert(75%);
+  }
+
+  60% {
+    filter: contrast(200%);
+  }
+
+  70% {
+    filter: grayscale(100%);
+  }
+
+  80% {
+    filter: blur(5px);
+  }
+}
+
+@keyframes filters-name {
+  0%, 20% {
+    content: "normal";
+  }
+
+  30% {
+    content: "sepia";
+  }
+
+  40% {
+    content: "grayscale";
+  }
+
+  50% {
+    content: "invert";
+  }
+
+  60% {
+    content: "contrast";
+  }
+
+  70% {
+    content: "blackandwhite";
+  }
+
+  80% {
+    content: "blur";
+  }
+}
