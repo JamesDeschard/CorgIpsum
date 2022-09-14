@@ -11,10 +11,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ###
+SECRET_KEY = '+6z9@$-3+4zu)gq2-!76o#=2p-z9+7_gwih)xn7e$2$7vb*hv_'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 if not DEBUG: 
     SECURE_SSL_REDIRECT = True        
@@ -26,8 +26,8 @@ if not DEBUG:
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_HSTS_PRELOAD = True
 
-ALLOWED_HOSTS = ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com', 'www.corgipsum.com', 'corgipsum.com']
-
+ALLOWED_HOSTS =  ['127.0.0.1', '.herokuapp.com', 'www.corgipsum.com', 'corgipsum.com']
+APPEND_SLASH = False
 
 # Application definition
 

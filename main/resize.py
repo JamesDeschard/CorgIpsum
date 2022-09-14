@@ -1,13 +1,11 @@
-from PIL import Image, ImageOps, ImageEnhance, ImageFilter
-from django.conf import settings
-
 import os
+import random
 
-from .choose_corgi import get_random_img
+from django.conf import settings
+from PIL import Image, ImageEnhance, ImageFilter, ImageOps
 
 
-class Filters(object):
-
+class Filters:
     def black_and_white(self, img):
         return img.convert('1')
 
@@ -48,16 +46,17 @@ class Filters(object):
 
         return img
 
-class NewCorgi(Filters):
+class GetAndModifyImage(Filters):
+    asset_path = os.path.join(settings.BASE_DIR,  'main', 'static', 'assets')
+    asset_files_length = len(os.listdir(asset_path))
 
     def __init__(self, width, height, filter=False):
         self.filter = filter
         self.wanted_dimensions = (width, height)
     
     def resize(self):
-        corgi = get_random_img()
-        image = Image.open(corgi)
-
+        image = f'{self.asset_path}/corgi_{random.randint(0, self.asset_files_length)}.jpg'
+        image = Image.open(image)
         new_image = ImageOps.fit(image, self.wanted_dimensions, Image.ANTIALIAS)
         new_image = self.apply_filter(new_image) if self.filter else new_image
         return new_image
