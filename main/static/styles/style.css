@@ -58,8 +58,8 @@ table {
   font-stretch: normal;
   font-display: swap;
   src:
-      url(./Corgi-Regular.woff2) format("woff2"),
-      url(./Corgi-Regular.woff) format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+      url(../fonts/Corgi-Regular.woff2) format("woff2"),
+      url(../fonts/Corgi-Regular.woff) format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 
 img {
