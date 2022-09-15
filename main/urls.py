@@ -1,14 +1,11 @@
-from django.urls import path
+from django.urls import path, re_path
 
-from .views import HomePage, ImageView
+from .views import home, ImageView
 
-
-def get_name(_class):
-    return _class.__name__.lower()
 
 urlpatterns = [
-    path('', HomePage.as_view(), name=get_name(HomePage)),
-    path('<int:width>/', ImageView.as_view()),
-    path('<int:width>/<int:height>/', ImageView.as_view()),
-    path('<int:width>/<int:height>/<str:filter>/', ImageView.as_view())
+    path('', home),
+    re_path(r'^(?P<width>\d+)/?$', ImageView.as_view()),
+    re_path(r'^(?P<width>\d+)/(?P<height>\d+)/?$', ImageView.as_view()),
+    re_path(r'^(?P<width>\d+)/(?P<height>\d+)/(?P<filter>\w+)/?$', ImageView.as_view()),
 ]

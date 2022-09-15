@@ -16,18 +16,17 @@ SECRET_KEY = '+6z9@$-3+4zu)gq2-!76o#=2p-z9+7_gwih)xn7e$2$7vb*hv_'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-if not DEBUG: 
-    SECURE_SSL_REDIRECT = True        
-    CSRF_COOKIE_SECURE = True #to avoid transmitting the CSRF cookie over HTTP accidentally.
-    SESSION_COOKIE_SECURE = True #to avoid transmitting the session cookie over HTTP accidentally
-    SECURE_BROWSER_XSS_FILTER = True
-    SECURE_CONTENT_TYPE_NOSNIFF = True  
-    SECURE_HSTS_SECONDS = 86400 
-    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-    SECURE_HSTS_PRELOAD = True
+# if not DEBUG: 
+#     SECURE_SSL_REDIRECT = True        
+#     CSRF_COOKIE_SECURE = True #to avoid transmitting the CSRF cookie over HTTP accidentally.
+#     SESSION_COOKIE_SECURE = True #to avoid transmitting the session cookie over HTTP accidentally
+#     SECURE_BROWSER_XSS_FILTER = True
+#     SECURE_CONTENT_TYPE_NOSNIFF = True  
+#     SECURE_HSTS_SECONDS = 86400 
+#     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+#     SECURE_HSTS_PRELOAD = True
 
 ALLOWED_HOSTS =  ['127.0.0.1', '.herokuapp.com', 'www.corgipsum.com', 'corgipsum.com']
-APPEND_SLASH = False
 
 # Application definition
 

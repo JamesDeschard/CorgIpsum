@@ -5,7 +5,7 @@ from urllib.error import HTTPError
 
 from django.conf import settings
 from django.core.management.base import BaseCommand
-from main.models import Url
+from main.models import ScrapedImageUrl
 
 ssl._create_default_https_context = ssl._create_unverified_context
 
@@ -22,7 +22,7 @@ def get_image(url, counter):
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
-        data = Url.objects.first()
+        data = ScrapedImageUrl.objects.first()
         counter = 0
         for url in data.data[0:LIMIT]:
             try:

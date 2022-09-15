@@ -3,7 +3,7 @@ import itertools
 import requests
 from bs4 import BeautifulSoup
 from django.core.management.base import BaseCommand
-from main.models import Url
+from main.models import ScrapedImageUrl
 
 LENGTH_OF_URL_LIST = 42
 
@@ -37,14 +37,14 @@ class GetCorgis:
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
-        if not Url.objects.first():
+        if not ScrapedImageUrl.objects.first():
             all_picture_urls = list()
             base_url = 'https://www.gettyimages.fr/photos/corgi-gallois?assettype=image&numberofpeople=none&phrase=corgi%20gallois&sort=mostpopular&license=rf%2Crm&page='
 
             for i in range(LENGTH_OF_URL_LIST):
                 all_picture_urls.append(GetCorgis(f'{base_url}{i}').clean_links())
                 
-            save_corgi_list = Url( 
+            save_corgi_list = ScrapedImageUrl( 
                                   title='Corgi Image List of Urls', 
                                   data=list(itertools.chain.from_iterable(all_picture_urls))
                                   )

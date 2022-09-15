@@ -7,26 +7,19 @@ from .resize import GetAndModifyImage
 
 
 def update_and_get_counter(add=True):
-    counter_object = Counter.objects.first()
+    current_count = Counter.objects.first()
 
     if add == False:
-        return counter_object.counter
+        return current_count.counter
 
-    counter = counter_object.counter + 1
-    counter_object.counter = counter
-    counter_object.save()
+    counter = current_count.counter + 1
+    current_count.counter = counter
+    current_count.save()
     return counter
 
 
-class HomePage(View):
-
-    template = "main/home.html"
-
-    def get(self, request, *args, **kwargs):
-        context = {
-            'counter': update_and_get_counter(add=False)
-        }
-        return render(request, self.template, context)
+def home(request):
+    return render(request, 'main/home.html', {'counter': update_and_get_counter(False)})
 
 
 class ImageView(View):
@@ -40,8 +33,7 @@ class ImageView(View):
         return True if all([arg <= 5000 for arg in args]) else False
     
     def get(self, request, *args, **kwargs):
-        update_and_get_counter()
-        url_params = list(kwargs.values())
+        url_params = [int(p) if p.isnumeric() else p for p in request.path.split('/') if p]
 
         if len(url_params) == 1:
             width = height = url_params[0]
@@ -72,6 +64,7 @@ class ImageView(View):
         
         response = HttpResponse(content_type='image/jpg')
         corgi.save(response, "JPEG")
+        update_and_get_counter()
         return response
 
 
