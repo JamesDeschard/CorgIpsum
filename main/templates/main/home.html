@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'styles/style.css' %}">
+    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+    <title>Corgipsum</title>
+  </head>
+<body>
+
+  <div class="hero">
+    <div class="container">
+      <figure class="hero__logo">
+        <img src="{% static 'images/corgipsum-logo.png'%}" alt="Corgipsum logo">
+      </figure>
+      <h1 class="hero__title">Corgipsum</h1>
+      <p class="hero__subtitle">Spread <span>❤️</span> with Corgis</p>
+      <div class="hero__center">
+        <p class="hero__counter"><span>{{ counter }}</span> corgis have already found an owner !</p>
+      </div>
+    </div>
+    <svg class="hero__waves" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+      <path fill="#fcdabf" fill-opacity="1" d="M0,224L60,197.3C120,171,240,117,360,117.3C480,117,600,171,720,176C840,181,960,139,1080,122.7C1200,107,1320,117,1380,122.7L1440,128L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"></path>
+    </svg>
+  </div>
+
+  <p class="headline">Corgipsum is a fast and simple way to use beautiful corgis as placeholders for any of your projects. Wether you are working
+    on some new code or your latest design i'm sure we can find a corgi to fit your needs!</p>
+
+  <div class="row">
+    <div class="container">
+      <div class="row__flex">
+        <div class="row__col">
+          <figure>
+            <img src="{% static 'assets/corgi_50.jpg'%}" alt="Corgi 118">
+          </figure>
+        </div>
+        <div class="row__col">
+          <h2 class="row__title">Choose your size.</h2>
+          <p class="row__content">All you have to do is type the dimensions of the desired corgi in the url following the domain name and we'll fix
+            you up with a furry friend.<br>
+            If you want a 400 pixels by 200 pixels picture just use <a href="https://corgipsum.com/400/200">https://corgipsum.com/400/200</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row row--reverse">
+    <div class="container">
+      <div class="row__flex">
+        <div class="row__col row__col--square">
+          <figure>
+            <img src="{% static 'assets/corgi_201.jpg'%}" alt="Corgi 118">
+          </figure>
+        </div>
+        <div class="row__col">
+          <h2 class="row__title">Get yourself a square.</h2>
+          <p class="row__content">The desired image is a square ? You will only need one parameter, so <a href="https://corgipsum.com/400">https://corgipsum.com/400</a> !</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="headline headline--big">But wait, there's more!</p>
+
+  <div class="row">
+    <div class="container">
+      <div class="row__flex">
+        <div class="row__col row__col--filters">
+          <figure>
+            <img src="{% static 'assets/corgi_199.jpg'%}" alt="Corgi 118">
+            <span></span>
+          </figure>
+        </div>
+        <div class="row__col">
+          <h2 class="row__title">Filters are available.</h2>
+          <p class="row__content">You can easily add a filter to your image by adding the name of said filter at the end
+            of the url.<br> Supported filters: <span>sepia</span> <span>grayscale</span> <span>invert</span> <span>contrast</span> <span>blackandwhite</span> <span>blur</span><br><br>
+            Example: <a href="https://corgipsum.com/400/200/sepia">https://corgipsum.com/400/200/sepia</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="footer">
+      <p>Developed with ❤️ by Corgi owners <a href="https://github.com/JamesDeschard">James Deschard</a> & <a href="https://github.com/Nkzq">Romain Lefort</a></p>
+      <p>Logo created by desigma, find it as a sticker on <a href="https://www.redbubble.com/fr/i/sticker/Mignon-corgi-fesses-par-desigma/32630973.EJUG5">Redbubble</a></p>
+    </div>
+  </div>
+
+</body>
+</html>
