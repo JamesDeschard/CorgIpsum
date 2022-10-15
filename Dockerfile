@@ -21,9 +21,6 @@ RUN python3 -m pip install --upgrade pip
 COPY ./requirements.txt .
 RUN pip install -r requirements.txt
 
-# collect static files
-RUN python manage.py collectstatic --noinput
-
 # copy project
 COPY . .
 
