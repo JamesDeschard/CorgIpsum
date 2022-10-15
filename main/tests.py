@@ -79,10 +79,3 @@ class TestResize(TestCase):
         image = is_grey_scale(image)
         self.assertEqual(image, True)
         
-        
-        
-        
-    
-        
-
-        

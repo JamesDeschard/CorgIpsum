@@ -36,8 +36,9 @@ class ImageView(View):
     
     def get(self, request, *args, **kwargs):
         url_params = [int(p) if p.isnumeric() else p for p in request.path.split('/') if p]
-
+        
         if len(url_params) == 1:
+            # Only one possible scenario: get image of param x param
             width = height = url_params[0]
             if not self.is_not_null((width, height)) or not self.check_dimensions(width, height):
                 raise Http404()
@@ -45,6 +46,7 @@ class ImageView(View):
             corgi = GetAndModifyImage(width, height).resize()
         
         elif len(url_params) == 2:
+            # Two possible scenarios: get image of param x param with filter or get image of param x param
             filter = None
             
             if not all(map(lambda x: True if type(x) == int else None, url_params)):
@@ -65,8 +67,9 @@ class ImageView(View):
                 
             else:
                 corgi = GetAndModifyImage(width, height).resize()
-        
+                
         elif len(url_params) == 3:
+            # Only one possible scenario: get image of param x param with filter
             width, height, filter = url_params
             if not self.is_not_null((width, height)) or not self.check_dimensions(width, height):
                 raise Http404()
@@ -83,13 +86,3 @@ class ImageView(View):
         corgi.save(response, "JPEG")
         update_and_get_counter()
         return response
-
-
-
- 
-
-
-
-
-     
-    

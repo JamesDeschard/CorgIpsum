@@ -88,5 +88,3 @@ class GetAndModifyImage(Filters):
 
         else:
             return self.invert(img)
-
-
