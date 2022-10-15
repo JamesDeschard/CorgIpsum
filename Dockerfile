@@ -16,6 +16,8 @@ RUN apk update \
     && pip install psycopg2
 
 # install dependencies
+RUN apk add -u zlib-dev jpeg-dev gcc musl-dev
+RUN python3 -m pip install --upgrade pip
 COPY ./requirements.txt .
 RUN pip install -r requirements.txt
 
