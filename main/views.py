@@ -40,7 +40,7 @@ class ImageView(View):
         if len(url_params) == 1:
             width = height = url_params[0]
             if not self.is_not_null((width, height)) or not self.check_dimensions(width, height):
-                raise Http404('Dimensions are not valid')
+                raise Http404()
             
             corgi = GetAndModifyImage(width, height).resize()
         
@@ -55,11 +55,11 @@ class ImageView(View):
                 width, height = url_params
 
             if not self.is_not_null((width, height)) or not self.check_dimensions(width, height):
-                raise Http404('Dimensions are not valid')
+                raise Http404()
             
             if filter:
                 if not self.check_filter(filter):
-                    return HttpResponse('Requested filter does not exist..!')
+                    return Http404()
                 else:
                     corgi = GetAndModifyImage(width, height, filter).resize()
                 
@@ -69,15 +69,15 @@ class ImageView(View):
         elif len(url_params) == 3:
             width, height, filter = url_params
             if not self.is_not_null((width, height)) or not self.check_dimensions(width, height):
-                raise Http404('Dimensions are not valid')
+                raise Http404()
             
             if not self.check_filter(filter):
-                return HttpResponse('Requested filter does not exist..!')
+                return Http404()
             
             corgi = GetAndModifyImage(width, height, filter).resize()
         
         else:
-            raise Http404('Requested corgi does not exist..! Please check url parameters..!')
+            raise Http404()
         
         response = HttpResponse(content_type='image/jpg')
         corgi.save(response, "JPEG")
