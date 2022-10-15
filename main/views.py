@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.shortcuts import render
 from django.views import View
 
@@ -7,15 +7,14 @@ from .resize import GetAndModifyImage
 
 
 def update_and_get_counter(add=True):
-    current_count = Counter.objects.first()
+    counter = Counter.objects.first()
 
     if add == False:
-        return current_count.counter
+        return counter.counter
 
-    counter = current_count.counter + 1
-    current_count.counter = counter
-    current_count.save()
-    return counter
+    counter.counter += 1
+    counter.save()
+    return counter.counter
 
 
 def home(request):
@@ -25,6 +24,9 @@ def home(request):
 class ImageView(View):
     template = "main/image.html"
     filters = ['sepia', 'grayscale', 'invert', 'contrast', 'blackandwhite', 'blur']
+    
+    def check_if_null(self, value):
+        return True if value else False
     
     def check_filter(self, filter):
         return True if filter in self.filters else False
@@ -37,22 +39,22 @@ class ImageView(View):
 
         if len(url_params) == 1:
             width = height = url_params[0]
-            if not self.check_dimensions(width, height):
-                return HttpResponse('Desired corgi is too large..!')
+            if not self.check_if_null(width) and self.check_dimensions(width, height):
+                raise Http404('Dimensions are not valid')
             
             corgi = GetAndModifyImage(int(width), int(height)).resize()
         
         elif len(url_params) == 2:
             width, height = url_params
-            if not self.check_dimensions(width, height):
-                return HttpResponse('Desired corgi is too large..!')
+            if not self.check_if_null(width) and self.check_dimensions(width, height):
+                raise Http404()
             
             corgi = GetAndModifyImage(int(width), int(height)).resize()
         
         elif len(url_params) == 3:
             width, height, filter = url_params
-            if not self.check_dimensions(width, height):
-                return HttpResponse('Desired corgi is too large..!')
+            if not self.check_if_null(width) and self.check_dimensions(width, height):
+                raise Http404('Dimensions are not valid')
             
             if not self.check_filter(filter):
                 return HttpResponse('Requested filter does not exist..!')
@@ -60,7 +62,7 @@ class ImageView(View):
             corgi = GetAndModifyImage(int(width), int(height), filter).resize()
         
         else:
-            return HttpResponse('Url parameters must be width, width/height or width/height/filter..! The filter parameter must NOT BE CLOSED WITH A SLASH..!')
+            raise Http404('Requested corgi does not exist..!')
         
         response = HttpResponse(content_type='image/jpg')
         corgi.save(response, "JPEG")
