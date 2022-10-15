@@ -14,7 +14,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '+6z9@$-3+4zu)gq2-!76o#=2p-z9+7_gwih)xn7e$2$7vb*hv_'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 if not DEBUG: 
     SECURE_SSL_REDIRECT = True        

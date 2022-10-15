@@ -44,6 +44,9 @@ class TestImageView(TestCase):
         response = client.get('/100')
         self.assertEqual(response.status_code, 200)
         
+        response = client.get('/100/sepia')
+        self.assertEqual(response.status_code, 200)
+        
         response = client.get('/100/100')
         self.assertEqual(response.status_code, 200)
         
